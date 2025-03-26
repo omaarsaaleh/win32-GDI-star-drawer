@@ -69,6 +69,7 @@ void drawStar(HDC hdc) {
         return slopeA < slopeB;
       });
 
+
     pair<int, int> star[6];
     star[0] = points[0];
     star[1] = points[2];
@@ -77,8 +78,19 @@ void drawStar(HDC hdc) {
     star[4] = points[3];
     star[5] = star[0]; 
 
-    for (int i = 0; i < 5; i++) {
-        MidPointLine(hdc, star[i], star[i + 1], RGB(0, 255, 0));
+    
+    
+    COLORREF colors[] = {
+        RGB(255, 0, 0),
+        RGB(0, 255, 0),
+        RGB(0, 0, 255),
+        RGB(0, 255, 255),
+        RGB(255, 0, 255)
+    };
+    int j = 0;
+    
+    for (int i = 0; i < 5; i++, j++) {
+        MidPointLine(hdc, star[i], star[i + 1], colors[j]);
     }
 
     points.clear();

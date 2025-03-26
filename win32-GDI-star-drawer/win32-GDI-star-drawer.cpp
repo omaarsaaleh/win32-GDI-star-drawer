@@ -74,12 +74,19 @@ void drawStar(HDC hdc) {
 
     topPoint = points[4];
 
-
-    MidPointLine(hdc, topPoint, bottomLeftPoint, RGB(0, 255, 0));
-    MidPointLine(hdc, topPoint, bottomRightPoint, RGB(0, 255, 0));
-    MidPointLine(hdc, middleRightPoint, middleLeftPoint, RGB(0, 255, 0));
-    MidPointLine(hdc, middleRightPoint, bottomLeftPoint, RGB(0, 255, 0));
-    MidPointLine(hdc, middleLeftPoint, bottomRightPoint, RGB(0, 255, 0));
+    COLORREF colors[] = {
+        RGB(255, 0, 0), 
+        RGB(0, 255, 0), 
+        RGB(0, 0, 255), 
+        RGB(0, 255, 255), 
+        RGB(255, 0, 255) 
+    };
+    int i = 0;
+    MidPointLine(hdc, topPoint, bottomLeftPoint, colors[i++]);
+    MidPointLine(hdc, topPoint, bottomRightPoint, colors[i++]);
+    MidPointLine(hdc, middleRightPoint, middleLeftPoint, colors[i++]);
+    MidPointLine(hdc, middleRightPoint, bottomLeftPoint, colors[i++]);
+    MidPointLine(hdc, middleLeftPoint, bottomRightPoint, colors[i++]);
 
 
 
