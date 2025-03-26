@@ -57,17 +57,14 @@ void MidPointLine(HDC hdc, pair<int, int> p1, pair<int, int> p2, COLORREF color)
 }
 
 void drawStar(HDC hdc) {
-    pair<int, int> leftMost = *min_element(points.begin(), points.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
+    int x_ref = (*min_element(points.begin(), points.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
         return (a.first < b.first) || (a.first == b.first && a.second < b.second);
+    })).first;
+
+
+    sort(points.begin(), points.end(), [x_ref](const pair<int, int>& a, const pair<int, int>& b) {
+        return abs(a.first - x_ref) < abs(b.first - x_ref);
      });
-
-    int x_ref = leftMost.first, y_ref = leftMost.second;
-
-    sort(points.begin(), points.end(), [x_ref, y_ref](const pair<int, int>& a, const pair<int, int>& b) {
-        double slopeA = (a.first == x_ref) ? INFINITY : (double)(a.second - y_ref) / (a.first - x_ref);
-        double slopeB = (b.first == x_ref) ? INFINITY : (double)(b.second - y_ref) / (b.first - x_ref);
-        return slopeA < slopeB;
-      });
 
 
     pair<int, int> star[6];
@@ -77,8 +74,6 @@ void drawStar(HDC hdc) {
     star[3] = points[1];
     star[4] = points[3];
     star[5] = star[0]; 
-
-    
     
     COLORREF colors[] = {
         RGB(255, 0, 0),
@@ -87,8 +82,8 @@ void drawStar(HDC hdc) {
         RGB(0, 255, 255),
         RGB(255, 0, 255)
     };
+
     int j = 0;
-    
     for (int i = 0; i < 5; i++, j++) {
         MidPointLine(hdc, star[i], star[i + 1], colors[j]);
     }
